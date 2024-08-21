@@ -1,9 +1,5 @@
 ### DFS_점프왕쩰리_s4
 
-N*N 크기의 게임판에서 (0,0)을 시작 좌표로 하고, 해당 좌표에 있는 숫자만큼 오른쪽 또는 아래로 이동하여 맨 오른쪽 아래 좌표(해당 값은 -1)에 도착할 수 있는지 여부를 확인하고 출력하는 문제이다.<br>
-
-시작점에서 오른쪽 또는 아래로 이동할 때 N을 벗어나지 않는지, 이미 방문한 값은 아닌지 여부를 확인해야했다.<br>
-스택을 사용하여 문제를 해결했다.
 
 
 ---
@@ -25,22 +21,23 @@ public class Main {
             }
         }
 
-        System.out.println(dfs(board));
+        System.out.println(bfs(board));
 
         br.close();
     }
 
-    static public String dfs(int[][] board){
-        // dfs 탐색을 위해 stack 사용
-        Stack<Node> stack = new Stack<>();
+    static public String bfs(int[][] board){
+        // bfs 탐색을 위해 queue 사용
+        Queue<Node> queue = new LinkedList<>();
+
 
         // 방문 여부 체크를 위한 배열
         boolean[][] visited = new boolean[N][N];
         // (0,0)에서 탐색 시작
-        stack.add(new Node(0, 0, board[0][0]));
+        queue.add(new Node(0, 0, board[0][0]));
 
-        while(!stack.isEmpty()){
-            Node current = stack.pop();
+        while(!queue.isEmpty()){
+            Node current = queue.poll();
 
             int x = current.x;
             int y = current.y;
@@ -61,12 +58,12 @@ public class Main {
 
             // x값에서 count만큼 x(행)으로 이동할때 N(전체 크기)보다 크면 안되고, 방문한 값이면 안됨
             if(x + count < N && !visited[x+count][y]){
-                stack.add(new Node(x+count, y, board[x+count][y]));
+                queue.add(new Node(x+count, y, board[x+count][y]));
             }
 
             // 노드에서 왼, 오 방향으로만 이동할 수 있으므로 x가 안되는 경우 열 방향으로 이동이 가능한지 체크
             if(y + count < N && !visited[x][y+count]){
-                stack.add(new Node(x, y+count, board[x][y+count]));
+                queue.add(new Node(x, y+count, board[x][y+count]));
             }
         }
 

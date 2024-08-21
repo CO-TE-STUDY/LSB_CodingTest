@@ -1,14 +1,11 @@
-### DFS_점프왕쩰리_s4
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
-N*N 크기의 게임판에서 (0,0)을 시작 좌표로 하고, 해당 좌표에 있는 숫자만큼 오른쪽 또는 아래로 이동하여 맨 오른쪽 아래 좌표(해당 값은 -1)에 도착할 수 있는지 여부를 확인하고 출력하는 문제이다.<br>
-
-시작점에서 오른쪽 또는 아래로 이동할 때 N을 벗어나지 않는지, 이미 방문한 값은 아닌지 여부를 확인해야했다.<br>
-스택을 사용하여 문제를 해결했다.
-
-
----
-### 코드
-```java
 public class Main {
     static int N;
     public static void main(String[] args) throws IOException {
@@ -62,11 +59,13 @@ public class Main {
             // x값에서 count만큼 x(행)으로 이동할때 N(전체 크기)보다 크면 안되고, 방문한 값이면 안됨
             if(x + count < N && !visited[x+count][y]){
                 stack.add(new Node(x+count, y, board[x+count][y]));
+                System.out.println("board[x+count][y] = " + board[x+count][y]);
             }
 
             // 노드에서 왼, 오 방향으로만 이동할 수 있으므로 x가 안되는 경우 열 방향으로 이동이 가능한지 체크
             if(y + count < N && !visited[x][y+count]){
                 stack.add(new Node(x, y+count, board[x][y+count]));
+                System.out.println("board[x][y+count] = " + board[x][y+count]);
             }
         }
 
@@ -87,5 +86,3 @@ class Node{
         this.count = count;
     }
 }
-
-```
